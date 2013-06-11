@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd 
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<mvc:annotation-driven />
+
+	<mvc:resources location="classpath:/res/" mapping="/resources/**" />
+
+	<mvc:default-servlet-handler />
+
+	<!-- for properties on controllers -->
+	<context:property-placeholder location="classpath*:META-INF/spring/*.properties" />
+
+	<!-- Removing <context:component-scan> from applicationContext.xml means 
+		that all your autodiscovered annotated beans are registered in DispatcherServlet's 
+		context (that is, the context loaded from webmvc-servlet.xml). However the 
+		recommended approach is to use servlet's context for presentation-specific 
+		things (such as controllers), and use the root context (myapp-config.xml) 
+		for the core services of your application. This solution make this approach 
+		easy. -->
+	<!-- Regarding the practical considerations, when your core services are 
+		placed in servlet's application context, they can't be accessed from outside 
+		the scope of that servlet, for example, from another servlets (you may need 
+		to use another servlets to implement another access technologies) or filters 
+		(such as Spring Security filters). That's the reason for having core services 
+		in the root application context. -->
+	<context:component-scan base-package="be.ordina"
+		use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller"
+			type="annotation" />
+	</context:component-scan>
+
+	<!-- must be in this servlet config file -->
+	<security:global-method-security
+		secured-annotations="enabled" />
+
+	<!-- Selects a static view for rendering without the need for an explicit 
+		controller -->
+	<!-- <mvc:view-controller path="/" view-name="login"/> -->
+	<mvc:view-controller path="/index" view-name="index" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/app/" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<!-- locale + spring security specific implementation!! registers an interceptor 
+		applied to all URL paths -->
+	<mvc:interceptors>
+		<bean id="localeChangeInterceptor"
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang"></property>
+		</bean>
+	</mvc:interceptors>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+
+	<!-- <bean id="handlerMapping" -->
+	<!-- class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"> -->
+	<!-- </bean> -->
+
+</beans>

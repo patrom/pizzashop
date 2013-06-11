@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" ng-app="AngularSpringApp">
+<head>
+    <meta charset="utf-8">
+    <title>Service App</title>
+    <link rel="stylesheet" href="assets/css/app.css"/>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+
+<div id="wrapper">
+    <ul class="menu">
+        <li><a href="#/pizzas">Pizzas</a></li>
+    </ul>
+    <hr class="" />
+    <div ng-view>
+    </div>
+</div>
+
+<script src="resources/lib/angular/angular.js"></script>
+<script src="resources/lib/angular/angular-resource.js"></script>
+<script src="resources/lib/angular/ui-bootstrap-0.3.0.min.js"></script>
+
+<script src="resources/js/app.js"></script>
+<script src="resources/js/services.js"></script>
+<script src="resources/js/controllers.js"></script>
+<script src="resources/js/filters.js"></script>
+<script src="resources/js/directives.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<li class="dropdown"><a class="dropdown-toggle"> Languages </a><span>{{selectedLanguage.name}}</span>
+	<ul class="dropdown-menu">
+		<li ng-repeat="lang in languages"><a ng-click="changeLang(lang)">{{lang.name}}</a>
+		</li>
+	</ul></li>
+
+<hr />
+
+<div class="input-append">
+	<input style="width: 358px;" class="span2" type="text"
+		ng-model="pizza.name" required min="1" />
+	<button class="btn btn-primary" ng-disabled="!pizza.name"
+		ng-click="addPizza(pizza)">Add Pizza</button>
+</div>
+
+<h3>Pizza List</h3>
+
+<div alert-bar alertmessage="errorService.errorMessage"></div>
+
+<div class="alert alert-info" style="width: 400px;"
+	ng-show="pizzas.length == 0">No pizzas found</div>
+<table class="table table-bordered table-striped" style="width: 450px;"
+	ng-show="pizzas.length > 0">
+	<thead>
+		<tr>
+			<th style="text-align: center; width: 25px;">Action</th>
+			<th style="text-align: center;">Pizza Name</th>
+			<th style="text-align: center;">ID</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="pizza in pizzas">
+			<td style="width: 70px; text-align: center;"><button
+					class="btn btn-mini btn-danger" ng-click="removePizza(pizza)">Remove</button></td>
+			<td style="text-align: center;">{{pizza.name}}</td>
+			<td style="text-align: center;">{{pizza.id}}</td>
+		</tr>
+	</tbody>
+</table>
+<button class="btn btn-danger" ng-show="pizzas.length > 1"
+	ng-click="removeAllPizzas()">Remove All Pizzas</button>
+<br />
+
+<hr />
+<div class="input-append">
+	<input style="width: 358px;" class="span2" type="text"
+		ng-model="inputId" required min="1" />
+	<button class="btn btn-primary" ng-click="findPizza()">find id</button>
+</div>
+<p>{{piz.name}}</p>
+
+<hr />
+<button class="btn btn-primary" ng-click="calculate()">price</button>
+<p>{{calculated}}</p>
+
+
+
+
+
