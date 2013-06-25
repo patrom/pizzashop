@@ -66,3 +66,4 @@ field string --fieldName authority
 field set --fieldName authorities --type ~.domain.Authorities --class ~.domain.Person 
 repository jpa --interface ~.repository.AuthoritiesRepository --entity ~.domain.Authorities 
 // Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-05-17 16:37:07
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-06-25 10:52:14

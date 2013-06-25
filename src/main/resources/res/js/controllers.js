@@ -75,6 +75,42 @@ angular.module('AngularSpringApp.controllers', []).controller(
 				});
 			};
 			
+
+			var soap = '<?xml version="1.0" encoding="UTF-8"?>'
+						+ '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://web.ordina.be/">' 
+							+ '<soapenv:Header/>' 
+							+ '<soapenv:Body >'
+								+ '<ns:getPizza><name>test webservice ok</name></ns:getPizza>'
+							+ '</soapenv:Body>'
+							+ '</soapenv:Envelope>';
+			$scope.testWebservice = function(){
+//				$http.defaults.headers.post['Accept'] = 'text/xml';
+//				$http.defaults.headers.post['Content-Type'] = 'text/xml';
+//				$http.post('hello', soap).success(function(message, error) {
+//					$window.alert(message);
+//				});
+				$http({
+					method: 'POST',
+					url: 'hello',
+					data: soap,
+					headers: {
+						'Accept': 'text/xml',
+						'Content-Type': 'text/xml'
+					},
+					transformResponse: function(data) {
+						var json = x2js.xml_str2json( data );
+						return json;
+					},
+					cache: false,
+					}).
+					success(function(data, status) {
+						$window.alert(data.Envelope.Body.getPizzaResponse.JXWsRes.name);
+					}).
+					error(function(data, status) {
+						$window.alert(data);
+				});
+			};
+			
 			$scope.findPizzas();
 			
 		} ]);
