@@ -45,7 +45,8 @@
 <div class="input-append">
 	<input style="width: 358px;" class="span2" type="text"
 		ng-model="inputId" required min="1" />
-	<button class="btn btn-primary" ng-click="findPizza()">find id</button>
+	<button class="btn btn-primary" ng-click="findPizza()">find REST</button>
+	<button class="btn btn-primary" ng-click="testWebservice()">find webservice</button>
 </div>
 <p>{{piz.name}}</p>
 
@@ -53,8 +54,6 @@
 <button class="btn btn-primary" ng-click="calculate()">price</button>
 <p>{{calculated}}</p>
 
-<button class="btn btn-primary" ng-click="testWebservice()">webservice</button>
-<p>{{result}}</p>
 
 
 

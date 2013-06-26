@@ -75,20 +75,19 @@ angular.module('AngularSpringApp.controllers', []).controller(
 				});
 			};
 			
-
-			var soap = '<?xml version="1.0" encoding="UTF-8"?>'
-						+ '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://web.ordina.be/">' 
-							+ '<soapenv:Header/>' 
-							+ '<soapenv:Body >'
-								+ '<ns:getPizza><name>test webservice ok</name></ns:getPizza>'
-							+ '</soapenv:Body>'
-							+ '</soapenv:Envelope>';
 			$scope.testWebservice = function(){
 //				$http.defaults.headers.post['Accept'] = 'text/xml';
 //				$http.defaults.headers.post['Content-Type'] = 'text/xml';
 //				$http.post('hello', soap).success(function(message, error) {
 //					$window.alert(message);
 //				});
+				var soap = '<?xml version="1.0" encoding="UTF-8"?>'
+					+ '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://web.ordina.be/">' 
+						+ '<soapenv:Header/>' 
+						+ '<soapenv:Body >'
+							+ '<ns:getPizza><id>' + $scope.inputId + '</id></ns:getPizza>'
+						+ '</soapenv:Body>'
+						+ '</soapenv:Envelope>';
 				$http({
 					method: 'POST',
 					url: 'hello',
@@ -102,12 +101,11 @@ angular.module('AngularSpringApp.controllers', []).controller(
 						return json;
 					},
 					cache: false,
-					}).
-					success(function(data, status) {
-						$window.alert(data.Envelope.Body.getPizzaResponse.JXWsRes.name);
-					}).
-					error(function(data, status) {
-						$window.alert(data);
+					}).success(function(data, status) {
+//						$window.alert(data.Envelope.Body.getPizzaResponse.PizzaRes.name);
+						$scope.piz = data.Envelope.Body.getPizzaResponse.PizzaRes;
+					}).error(function(data, status) {
+						$window.alert(data.Envelope.Body.Fault.faultstring);
 				});
 			};
 			
